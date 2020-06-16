@@ -13,6 +13,8 @@ var roleBuilder = {
     
     run: function(creep){
         
+        const idleSpot = Game.flags["IdleSpot"]
+        
         if(creep.memory.building && creep.store[RESOURCE_ENERGY] == 0){
             
             creep.memory.building = false       //if the creep is building something AND its stored energy is 0, set building to false
@@ -34,6 +36,11 @@ var roleBuilder = {
                     creep.moveTo(targets[0])        //move to it
                 }
             }
+            
+            else{
+                
+                creep.moveTo[idleSpot]
+            }
         }
         
         else{
@@ -41,11 +48,11 @@ var roleBuilder = {
             var closestResource = creep.pos.findClosestByPath(FIND_SOURCES)     //finds the closest resource by path
             
             if(creep.harvest(closestResource) == ERR_NOT_IN_RANGE){     //and harvests its
+            
                 creep.moveTo(closestResource)
             }
         }
     }
 }
-
 
 module.exports = roleBuilder

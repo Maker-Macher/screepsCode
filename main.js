@@ -8,7 +8,6 @@ var spawner = require("base.Spawn")
 const maxBots = 2
 const base = Game.spawns["Spawn1"]
 
-
 module.exports.loop = function(){
     
     for(const i in Game.creeps){    //runs the apporpiate module for each creep in the game based on "roles" that are stored in that specific creep
@@ -24,7 +23,6 @@ module.exports.loop = function(){
         if(creep.memory.role == "builder"){
             roleBuilder.run(creep)
         }
-
     }
     
     //Spawn bots if there are < maxBots present
@@ -34,6 +32,7 @@ module.exports.loop = function(){
     var builder = []
     
     for(const i in Game.creeps){    //counts how many creeps of each role there are and puts them in the array defined above
+    
         if(Game.creeps[i].memory.role == "harvester"){
             harvester.push(Game.creeps[i])
         }
@@ -55,7 +54,7 @@ module.exports.loop = function(){
         }
     }
     
-    if(upgrader.length < maxBots){
+    else if(upgrader.length < maxBots){
         
         for(var i = 0; i < maxBots; i++){
             
@@ -63,12 +62,11 @@ module.exports.loop = function(){
         }
     }
     
-    if(builder.length < maxBots){
+    else if(builder.length < maxBots){
         
         for(var i = 0; i < maxBots; i++){
             
             spawner.run("Builder"+i,"builder","Spawn1")
         }
     }
-    
 }
